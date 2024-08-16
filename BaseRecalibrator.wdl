@@ -17,7 +17,7 @@ task BaseRecalibrator {
 
     String docker
     Int preemptible_count
-
+    Int num_threads
     command <<<
         ${gatk_path} --java-options "-XX:GCTimeLimit=50 -XX:GCHeapFreeLimit=10 -XX:+PrintFlagsFinal \
             -Xlog:gc::utctime -Xlog:gc* \
@@ -40,6 +40,7 @@ task BaseRecalibrator {
         disks: "local-disk " + sub((size(input_bam,"GB")*3)+30, "\\..*", "") + " HDD"
         docker: docker
         preemptible: preemptible_count
+        cpu: "${num_threads}"
     }
 }
 workflow BaseRecalibrator_workflow{

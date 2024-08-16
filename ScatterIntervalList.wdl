@@ -6,6 +6,7 @@ task ScatterIntervalList {
 	String gatk_path
 	String docker
 	Int preemptible_count
+    Int num_threads 
 
     command <<<
         set -e
@@ -44,6 +45,7 @@ task ScatterIntervalList {
         memory: "2 GB"
         docker: docker
         preemptible: preemptible_count
+        cpu: "${num_threads}"
     }
 }
 

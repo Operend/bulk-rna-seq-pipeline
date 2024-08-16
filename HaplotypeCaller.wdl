@@ -16,7 +16,7 @@ task HaplotypeCaller {
 	String gatk_path
 	String docker
 	Int preemptible_count
-
+	Int num_threads
 	Int? stand_call_conf
 
 	command <<<
@@ -28,7 +28,8 @@ task HaplotypeCaller {
 		-O ${base_name}.vcf.gz \
 		-dont-use-soft-clipped-bases \
 		--standard-min-confidence-threshold-for-calling ${default=20 stand_call_conf} \
-		--dbsnp ${dbSNP_vcf}
+		--dbsnp ${dbSNP_vcf} \
+		--native-pair-hmm-threads ${num_threads}
 	>>>
 
 	output {
@@ -41,6 +42,7 @@ task HaplotypeCaller {
 		memory: "6.5 GB"
 		disks: "local-disk " + sub((size(input_bam,"GB")*2)+30, "\\..*", "") + " HDD"
 		preemptible: preemptible_count
+		cpu: "${num_threads}"
 	}
 }
 workflow HaplotypeCaller_workflow{

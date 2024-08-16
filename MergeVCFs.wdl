@@ -9,7 +9,7 @@ task MergeVCFs {
 
     String docker
     Int preemptible_count
-
+    Int num_threads 
 
     command <<<
         ${gatk_path} --java-options "-Xms2000m"  \
@@ -28,6 +28,7 @@ task MergeVCFs {
         disks: "local-disk " + disk_size + " HDD"
         docker: docker
         preemptible: preemptible_count
+        cpu: "${num_threads}"
     }
 }
 

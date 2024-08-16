@@ -7,10 +7,11 @@ task MiXCR {
     String material
     Int preemptible_count
     String prefix
+    Int num_threads
 
     command <<<
         mixcr activate-license < ${mi_license}
-        mixcr analyze shotgun --starting-material ${material} -s ${species} --only-productive ${fastq1} ${fastq2} ${prefix}
+        mixcr analyze shotgun --starting-material ${material} -s ${species} -t ${num_threads} --only-productive ${fastq1} ${fastq2} ${prefix}
     >>>
         output {
         File report = "${prefix}.report"
@@ -23,6 +24,7 @@ task MiXCR {
         disks: "local-disk 64 HDD"
         memory: "32 GB"
         docker: docker
+        cpu: "${num_threads}"
         preemptible: preemptible_count
         }
 }

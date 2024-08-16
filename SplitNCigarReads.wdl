@@ -12,7 +12,7 @@ task SplitNCigarReads {
   String gatk_path
   String docker
   Int preemptible_count
-
+  Int num_threads 
     command <<<
         ${gatk_path} \
                 SplitNCigarReads \
@@ -31,6 +31,7 @@ task SplitNCigarReads {
         docker: docker
         memory: "16 GB"
         preemptible: preemptible_count
+        cpu: "${num_threads}"
     }
 }
 workflow SplitNCigarReads_workflow{

@@ -11,6 +11,7 @@ task VariantFiltration {
 	String gatk_path
 	String docker
  	Int preemptible_count
+	Int num_threads 
 
 	command <<<
 		 ${gatk_path} \
@@ -36,6 +37,7 @@ task VariantFiltration {
 		memory: "3 GB"
 		disks: "local-disk " + sub((size(input_vcf,"GB")*2)+30, "\\..*", "") + " HDD"
 		preemptible: preemptible_count
+		cpu: "${num_threads}"
 	}
 }
 

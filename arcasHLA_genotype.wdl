@@ -7,7 +7,8 @@ task arcasHLA_extract {
 	Int preemptible_count
 
 	command <<<
-		arcasHLA extract ${input_bam} --verbose --threads ${num_threads} --outdir .
+		mkdir temp_extract
+		arcasHLA extract ${input_bam} --verbose --threads ${num_threads} --outdir . --temp temp_extract
 	>>>	
 
 	output {
@@ -36,10 +37,11 @@ task arcasHLA_genotype {
 	Int preemptible_count
 
 	command <<<
+		mkdir temp_genotype
 		arcasHLA genotype --verbose --threads ${num_threads} \
 		${sample_extracted_1} \
 		${sample_extracted_2} \
-		--genes A,B,C,DPB1,DQB1,DQA1,DRB1 --outdir .
+		--genes A,B,C,DPB1,DQB1,DQA1,DRB1 --outdir . --temp temp_genotype
 	>>>
 
 	output {
