@@ -13,7 +13,7 @@ task ApplyBQSR {
 
     String docker
     Int preemptible_count
-
+    Int num_threads
     command <<<
         ${gatk_path} \
             --java-options "-XX:+PrintFlagsFinal -Xlog:gc::utctime \
@@ -38,6 +38,7 @@ task ApplyBQSR {
         disks: "local-disk " + sub((size(input_bam,"GB")*4)+30, "\\..*", "") + " HDD"
         preemptible: preemptible_count
         docker: docker
+        cpu: "${num_threads}"
     }
 }
 
