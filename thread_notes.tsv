@@ -1,0 +1,16 @@
+
+TASK    THREAD_VAR_LOCATION DEFAULT_OR_CURRENT_VAL
+FASTQC  manifest    5
+MergeVCFs   gatk/picard default 1
+MiXCR   manifest    4
+RSEQC_TIN   samtools & RSeQC default    ?
+ReadGroup   container default - looking at the command, it should not matter  ?
+TRUST   container default (https://github.com/liulab-dfci/TRUST4/blob/master/run-trust4)    1
+arcasHLA_extract    manifest    8
+createSE    its in here somewhere https://hub.docker.com/r/htanpipelines/aggregation/   ?
+gtfToCallingIntervals   its set in the manifest but not used in the script from what I can tell https://raw.githubusercontent.com/htan-pipelines/bulk-rna-seq-pipeline/master/gtfToCallingIntervals.wdl  8
+markduplicates  set in manfest but not used in the command   https://api.firecloud.org/ga4gh/v1/tools/broadinstitute_gtex:markduplicates_v1-0_BETA/versions/6/plain-WDL/descriptor 8
+rnaseqc2    set in the manifest but not used in the command  https://api.firecloud.org/ga4gh/v1/tools/broadinstitute_gtex:rnaseqc2_v1-0_BETA/versions/3/plain-WDL/descriptor    8
+rsem    manifest    8
+rsem_reference  manfest 8
+star    manifest    32
