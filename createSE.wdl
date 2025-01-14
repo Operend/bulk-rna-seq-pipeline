@@ -11,7 +11,7 @@ task createSE {
     File samtools_stats_file
     String sample_name
     Int disk
-
+    Int num_threads
 
     command {
              
@@ -28,6 +28,7 @@ task createSE {
         memory: "16 GB"
         docker: "docker.io/htanpipelines/aggregation:latest"
         preemptible: 0
+        cpu: "${num_threads}"
     }
 }
 
